@@ -16,15 +16,12 @@ const basePath = getBasePath();
 const nextConfig = {
   output: "export",
   basePath,
-  assetPrefix: basePath ? `${basePath}/` : undefined,
+  assetPrefix: basePath || undefined,
   images: {
     unoptimized: true,
   },
   env: {
     NEXT_PUBLIC_BASE_PATH: basePath,
-  },
-  turbopack: {
-    root: import.meta.dirname,
   },
 };
 

@@ -1,5 +1,17 @@
 /** @type {import('next').NextConfig} */
-const basePath = process.env.BASE_PATH || "";
+function getBasePath() {
+  if (process.env.BASE_PATH) {
+    return process.env.BASE_PATH;
+  }
+
+  if (process.env.GITHUB_ACTIONS === "true" && process.env.GITHUB_REPOSITORY) {
+    return `/${process.env.GITHUB_REPOSITORY.split("/")[1]}`;
+  }
+
+  return "";
+}
+
+const basePath = getBasePath();
 
 const nextConfig = {
   output: "export",

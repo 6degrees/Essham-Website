@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Navbar from "./components/Navbar";
 import WhatWeDoVideo from "./components/WhatWeDoVideo";
+import { assetPath } from "../lib/assetPath";
 
 const stats = [
   {
@@ -51,7 +52,7 @@ export default function HomePage() {
 
       <section className="hero">
         <div className="hero-bg">
-          <img src="/hero-bg.jpg" alt="" aria-hidden="true" />
+          <img src={assetPath("/hero-bg.jpg")} alt="" aria-hidden="true" />
         </div>
         <div className="hero-overlay" />
 

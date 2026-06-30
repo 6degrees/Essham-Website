@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/6degrees/Essham-Website/issues"
   },
-  "homepage": "https://github.com/6degrees/Essham-Website#readme",
+  "homepage": "https://6degrees.github.io/Essham-Website/",
   "dependencies": {
     "next": "^16.2.9",
     "react": "^19.2.7",

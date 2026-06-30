@@ -2,20 +2,31 @@
 
 A 2-page English website for **Essham Al-Sharq Establishment** — Facilities & Residential Buildings Management.
 
+## Live Site
+
+Deployed via GitHub Pages: [https://6degrees.github.io/Essham-Website/](https://6degrees.github.io/Essham-Website/)
+
 ## Pages
 
-- **Home** (`index.html`) — Hero, About Us, Mission/Vision/Goals, service pillars, partners, and contact CTA
-- **Services** (`services.html`) — Full service catalog (30+ services) and contact form
+- **Home** (`/`) — Hero, About Us, What We Do, and contact CTA
+- **Services** (`/services`) — Service catalog, FAQ, and booking form
 
 ## Run Locally
 
-Open `index.html` in a browser, or serve with any static server:
-
 ```bash
-python3 -m http.server 8080
+npm install
+npm run dev
 ```
 
-Then visit [http://localhost:8080](http://localhost:8080).
+Visit [http://localhost:3000](http://localhost:3000).
+
+## Build for GitHub Pages
+
+```bash
+npm run build
+```
+
+Static files are exported to `out/`. In CI, `BASE_PATH=/Essham-Website` is set automatically by the GitHub Actions workflow.
 
 ## Contact
 

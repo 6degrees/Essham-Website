@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { assetPath } from "../../lib/assetPath";
 
 export default function WhatWeDoVideo() {
   const videoRef = useRef(null);
@@ -35,8 +36,8 @@ export default function WhatWeDoVideo() {
       <video
         ref={videoRef}
         className="whatwedo-video"
-        src="/maintenance-video.mp4"
-        poster="/maintenance.jpg"
+        src={assetPath("/maintenance-video.mp4")}
+        poster={assetPath("/maintenance.jpg")}
         autoPlay
         loop
         muted

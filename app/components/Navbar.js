@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { assetPath } from "../../lib/assetPath";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -32,7 +33,7 @@ export default function Navbar() {
       <div className="container nav-row">
         <Link href="/" className="brand">
           <Image
-            src="/essham-logo.png"
+            src={assetPath("/essham-logo.png")}
             alt="Essham — Facilities and Residential Buildings Management"
             width={160}
             height={56}

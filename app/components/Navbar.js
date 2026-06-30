@@ -3,14 +3,32 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const isServices = pathname === "/services";
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const hero = document.querySelector(".hero, .inner-hero");
+    if (!hero) {
+      setScrolled(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setScrolled(!entry.isIntersecting),
+      { threshold: 0, rootMargin: "-80px 0px 0px 0px" }
+    );
+
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, [pathname]);
 
   return (
-    <header className="topbar">
+    <header className={`topbar${scrolled ? " topbar--scrolled" : ""}`}>
       <div className="container nav-row">
         <Link href="/" className="brand">
           <Image

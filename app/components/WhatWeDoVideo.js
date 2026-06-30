@@ -1,10 +1,21 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function WhatWeDoVideo() {
   const videoRef = useRef(null);
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(true);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    const playPromise = video.play();
+    if (playPromise) {
+      playPromise.catch(() => setPlaying(false));
+    }
+  }, []);
 
   const togglePlay = () => {
     const video = videoRef.current;
@@ -26,9 +37,11 @@ export default function WhatWeDoVideo() {
         className="whatwedo-video"
         src="/maintenance-video.mp4"
         poster="/maintenance.jpg"
+        autoPlay
+        loop
+        muted
         playsInline
-        preload="metadata"
-        onEnded={() => setPlaying(false)}
+        preload="auto"
         onPause={() => setPlaying(false)}
         onPlay={() => setPlaying(true)}
       />

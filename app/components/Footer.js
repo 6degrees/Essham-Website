@@ -1,15 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "../../lib/i18n/LanguageProvider";
 import { assetPath } from "../../lib/assetPath";
 
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
-  { label: "FAQ", href: "/services#faq" },
-  { label: "Book Service", href: "tel:+966570563333" },
-];
-
 export default function Footer() {
+  const { messages } = useLanguage();
+  const { footer: f } = messages;
+
+  const navLinks = [
+    { label: f.home, href: "/" },
+    { label: f.services, href: "/services" },
+    { label: f.faq, href: "/services#faq" },
+    { label: f.bookService, href: "tel:+966570563333" },
+  ];
+
   return (
     <footer className="site-footer">
       <div className="container">
@@ -23,26 +29,18 @@ export default function Footer() {
                 height={48}
               />
             </Link>
-            <p className="footer-newsletter-text">
-              Stay up-to-date with our newsletter. No spam, just good stuff.
-              Right to your inbox!
-            </p>
+            <p className="footer-newsletter-text">{f.newsletter}</p>
             <div className="footer-subscribe">
-              <input type="email" placeholder="Enter email address..." />
-              <button type="button">Subscribe Now</button>
+              <input type="email" placeholder={f.emailPlaceholder} />
+              <button type="button">{f.subscribe}</button>
             </div>
           </div>
 
           <div className="footer-cta" data-reveal="right" data-reveal-delay={120}>
-            <h2 className="footer-cta-title">
-              Reliable facility management for residential communities.
-            </h2>
-            <p className="footer-cta-text">
-              Book a trusted Essham team who shows up, cares, and keeps your
-              property running smoothly.
-            </p>
+            <h2 className="footer-cta-title">{f.ctaTitle}</h2>
+            <p className="footer-cta-text">{f.ctaText}</p>
             <a href="tel:+966570563333" className="footer-book-btn">
-              Submit Booking Request
+              {f.bookBtn}
               <span className="footer-book-plus" aria-hidden="true">
                 +
               </span>
@@ -52,10 +50,10 @@ export default function Footer() {
 
         <div className="footer-nav footer-nav--compact">
           <div className="footer-col" data-reveal data-reveal-delay={0}>
-            <h4 className="footer-col-title">Navigate</h4>
+            <h4 className="footer-col-title">{f.navigate}</h4>
             <ul>
               {navLinks.map((link) => (
-                <li key={link.label}>
+                <li key={link.href}>
                   {link.href.startsWith("tel:") ? (
                     <a href={link.href}>{link.label}</a>
                   ) : (
@@ -67,27 +65,26 @@ export default function Footer() {
           </div>
 
           <div className="footer-col" data-reveal data-reveal-delay={100}>
-            <h4 className="footer-col-title">Contact</h4>
+            <h4 className="footer-col-title">{f.contact}</h4>
             <ul>
               <li>
                 <a href="tel:+966570563333">057 056 3333</a>
               </li>
               <li>
-                <a href="tel:+966570563333">Emergency Support</a>
+                <a href="tel:+966570563333">{f.emergency}</a>
               </li>
             </ul>
             <p className="footer-address">
-              Al Khobar, Corniche Park,
+              {f.addressLine1}
               <br />
-              Prince Turki St, Al-Kafa&apos;ah Center, Office 3
+              {f.addressLine2}
             </p>
           </div>
         </div>
 
         <div className="footer-bottom" data-reveal data-reveal-delay={100}>
           <p className="footer-copyright">
-            © Essham {new Date().getFullYear()} | Facilities & Residential Buildings
-            Management
+            © Essham {new Date().getFullYear()} | {f.copyright}
           </p>
         </div>
       </div>

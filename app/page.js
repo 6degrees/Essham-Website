@@ -1,58 +1,57 @@
+"use client";
+
 import Link from "next/link";
 import Navbar from "./components/Navbar";
 import WhatWeDoVideo from "./components/WhatWeDoVideo";
+import { useLanguage } from "../lib/i18n/LanguageProvider";
 import { assetPath } from "../lib/assetPath";
 
-const stats = [
-  {
-    value: "230+",
-    label: "Properties Managed",
-    description:
-      "Residential buildings and shared properties managed with full operational oversight.",
-  },
-  {
-    value: "10+",
-    label: "Years of Experience",
-    description:
-      "Years of professional facility management experience you can rely on.",
-  },
-  {
-    value: "99%",
-    label: "Client Satisfaction",
-    description:
-      "Customer satisfaction across the communities we serve every day.",
-  },
+const highlightIcons = [
+  <svg key="clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 6v6l4 2" />
+  </svg>,
+  <svg key="building" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6" />
+  </svg>,
+  <svg key="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <path d="M12 21s7-4.5 7-10a7 7 0 1 0-14 0c0 5.5 7 10 7 10z" />
+    <circle cx="12" cy="11" r="2.5" />
+  </svg>,
 ];
 
-const features = [
-  {
-    title: "Clear, upfront operations",
-    description:
-      "Eliminate the guesswork with honest, transparent service plans. We provide detailed scope with no hidden fees.",
-    icon: "pricing",
-  },
-  {
-    title: "Residential & community solutions",
-    description:
-      "From shared residential buildings to full facility portfolios, we offer versatile management tailored to your property.",
-    icon: "buildings",
-  },
-  {
-    title: "24/7 emergency support",
-    description:
-      "We value your residents' safety. Our trained teams respond around the clock for mandatory and emergency services.",
-    icon: "clock",
-  },
-];
+const featureIcons = {
+  pricing: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+    </svg>
+  ),
+  buildings: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6" />
+    </svg>
+  ),
+  clock: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 6v6l4 2" />
+    </svg>
+  ),
+};
+
+const featureIconKeys = ["pricing", "buildings", "clock"];
 
 export default function HomePage() {
+  const { messages } = useLanguage();
+  const { hero, about, whatWeDo, contact } = messages;
+
   return (
     <div className="site-wrap">
       <Navbar />
 
       <section className="hero">
         <div className="hero-bg">
-          <img src={assetPath("/hero-bg.jpg")} alt="" aria-hidden="true" />
+          <img src={assetPath("/hero-home.png")} alt="" aria-hidden="true" />
         </div>
         <div className="hero-overlay" />
 
@@ -69,65 +68,31 @@ export default function HomePage() {
               <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
               <path d="M9 22V12h6v10" />
             </svg>
-            Professional management, maintenance, and cleaning for residential
-            buildings across Saudi Arabia.
+            {hero.tagline}
           </p>
 
           <h1 className="hero-title" data-reveal data-reveal-delay={160}>
-            Elevate your
+            {hero.titleLine1}
             <br />
-            space with expert
+            {hero.titleLine2}
             <br />
-            management.
+            {hero.titleLine3}
           </h1>
 
-          <div className="hero-bottom">
-            <div
-              className="hero-rating hero-rating--left"
-              data-reveal="left"
-              data-reveal-delay={240}
-            >
+          <div className="hero-ratings" data-reveal data-reveal-delay={240}>
+            <div className="hero-rating">
               <span className="hero-rating-dot hero-rating-dot--orange" />
-              4.9 Client Rating
+              {hero.rating1}
             </div>
-
-            <div className="hero-cards" data-reveal data-reveal-delay={320}>
-              <a href="tel:+966570563333" className="hero-talk-card">
-                <div className="hero-talk-avatar">E</div>
-                <div className="hero-talk-text">
-                  <span className="hero-talk-label">Let&apos;s Talk</span>
-                  <strong>Essham Team</strong>
-                  <span>Client Support</span>
-                </div>
-                <span className="hero-talk-arrow" aria-hidden="true">
-                  →
-                </span>
-              </a>
-
-              <Link href="/services" className="hero-services-card">
-                <span>See All Services</span>
-                <span className="hero-services-arrow" aria-hidden="true">
-                  ↗
-                </span>
-              </Link>
-            </div>
-
-            <div
-              className="hero-rating hero-rating--right"
-              data-reveal="right"
-              data-reveal-delay={400}
-            >
+            <div className="hero-rating">
               <span className="hero-rating-dot hero-rating-dot--green" />
-              30+ Services
+              {hero.rating2}
             </div>
           </div>
         </div>
 
         <div className="hero-info-bar" data-reveal data-reveal-delay={480}>
-          <span>057 056 3333</span>
-          <span className="hero-info-location">
-            Al Khobar, Corniche Park — Prince Turki St, Office 3
-          </span>
+          <span className="hero-info-location">{hero.location}</span>
         </div>
       </section>
 
@@ -136,38 +101,36 @@ export default function HomePage() {
           <aside className="about-sidebar" data-reveal="left">
             <span className="about-badge">
               <span className="about-badge-dot" />
-              About Us
+              {about.badge}
             </span>
-            <p className="about-years">2019–2026</p>
-            <div className="about-avatars" aria-hidden="true">
-              <span className="about-avatar about-avatar--1">E</span>
-              <span className="about-avatar about-avatar--2">S</span>
-              <span className="about-avatar about-avatar--3">H</span>
-            </div>
-            <p className="about-team-text">
-              Professional &amp; verified facility management experts.
-            </p>
+            <ul className="about-highlights" aria-label={about.highlightsLabel}>
+              {about.highlights.map((label, index) => (
+                <li className="about-highlight" key={`highlight-${index}`}>
+                  <span className="about-highlight-icon" aria-hidden="true">
+                    {highlightIcons[index]}
+                  </span>
+                  <span>{label}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="about-team-text">{about.teamText}</p>
             <Link href="/services" className="about-cta-btn">
-              Learn About Us
+              {about.cta}
               <span aria-hidden="true">+</span>
             </Link>
           </aside>
 
           <div className="about-main" data-reveal="right" data-reveal-delay={100}>
-            <span className="about-tag">#Facility Management</span>
+            <span className="about-tag">{about.tag}</span>
             <h2 className="about-statement">
-              Bringing quality and comfort back to your buildings. Delivering
-              exceptional management, maintenance, and cleaning with care,
-              precision, and trust.{" "}
-              <span className="about-statement-muted">
-                No shortcuts. No surface-level service. Just results!
-              </span>
+              {about.statement}{" "}
+              <span className="about-statement-muted">{about.statementMuted}</span>
             </h2>
             <div className="about-stats">
-              {stats.map((item, index) => (
+              {about.stats.map((item, index) => (
                 <article
                   className="about-stat-card"
-                  key={item.label}
+                  key={`stat-${index}`}
                   data-reveal
                   data-reveal-delay={index * 120}
                 >
@@ -189,15 +152,12 @@ export default function HomePage() {
             <div className="whatwedo-header-text">
               <span className="whatwedo-badge">
                 <span className="whatwedo-badge-dot" />
-                What We Do
+                {whatWeDo.badge}
               </span>
-              <h2>
-                We don&apos;t just maintain, we care for your buildings and
-                residents.
-              </h2>
+              <h2>{whatWeDo.title}</h2>
             </div>
             <Link href="/services" className="whatwedo-cta-btn">
-              Learn About Us
+              {whatWeDo.cta}
               <span aria-hidden="true">↗</span>
             </Link>
           </div>
@@ -208,36 +168,17 @@ export default function HomePage() {
             </div>
 
             <div className="whatwedo-content" data-reveal="right" data-reveal-delay={200}>
-              <p className="whatwedo-intro">
-                From elevators and HVAC to corridors and common areas, our
-                detailed management approach covers every corner. We use
-                professional standards and sustainable facility practices.
-              </p>
+              <p className="whatwedo-intro">{whatWeDo.intro}</p>
               <ul className="whatwedo-features">
-                {features.map((item, index) => (
+                {whatWeDo.features.map((item, index) => (
                   <li
-                    key={item.title}
+                    key={`feature-${index}`}
                     className="whatwedo-feature"
                     data-reveal
                     data-reveal-delay={index * 100}
                   >
                     <span className="whatwedo-feature-icon" aria-hidden="true">
-                      {item.icon === "pricing" && (
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                        </svg>
-                      )}
-                      {item.icon === "buildings" && (
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                          <path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6" />
-                        </svg>
-                      )}
-                      {item.icon === "clock" && (
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                          <circle cx="12" cy="12" r="10" />
-                          <path d="M12 6v6l4 2" />
-                        </svg>
-                      )}
+                      {featureIcons[featureIconKeys[index]]}
                     </span>
                     <div>
                       <h3>{item.title}</h3>
@@ -251,23 +192,54 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="contact" className="section light">
-        <div className="container contact-box" data-reveal="scale">
-          <div>
-            <p className="eyebrow dark">Contact</p>
-            <h2>Book a trusted, professional Essham team.</h2>
-            <p>
-              Kingdom of Saudi Arabia - Al Khobar - Corniche Park, Prince Turki
-              Street, Al-Kafa&apos;ah Center, Office 3
-            </p>
-          </div>
-          <div className="contact-actions">
-            <a href="tel:+966570563333" className="btn btn-accent">
-              Call Now
-            </a>
-            <Link href="/services" className="btn btn-dark">
-              View Service Plans
-            </Link>
+      <section id="contact" className="contact-section">
+        <div className="container">
+          <div className="contact-card" data-reveal="scale">
+            <div className="contact-card-copy">
+              <span className="contact-pill">
+                <span className="contact-pill-dot" />
+                {contact.badge}
+              </span>
+              <h2 className="contact-title">{contact.title}</h2>
+              <ul className="contact-details">
+                <li className="contact-detail">
+                  <span className="contact-detail-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                  </span>
+                  <div>
+                    <span className="contact-detail-label">{contact.callLabel}</span>
+                    <a href="tel:+966570563333">057 056 3333</a>
+                  </div>
+                </li>
+                <li className="contact-detail">
+                  <span className="contact-detail-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path d="M12 21s7-4.5 7-10a7 7 0 1 0-14 0c0 5.5 7 10 7 10z" />
+                      <circle cx="12" cy="11" r="2.5" />
+                    </svg>
+                  </span>
+                  <div>
+                    <span className="contact-detail-label">{contact.visitLabel}</span>
+                    <p>{contact.address}</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div className="contact-card-actions">
+              <a href="tel:+966570563333" className="contact-primary-btn">
+                {contact.callNow}
+                <span className="icon-flip" aria-hidden="true">
+                  →
+                </span>
+              </a>
+              <Link href="/services" className="contact-secondary-btn">
+                {contact.viewPlans}
+                <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

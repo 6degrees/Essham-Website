@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import LanguageToggle from "./LanguageToggle";
+import { useLanguage } from "../../lib/i18n/LanguageProvider";
 import { assetPath } from "../../lib/assetPath";
 
 function isHeroVisible() {
@@ -14,6 +16,8 @@ function isHeroVisible() {
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { messages } = useLanguage();
+  const { nav } = messages;
   const isHome = pathname === "/";
   const isServices = pathname === "/services";
   const [pastHero, setPastHero] = useState(false);
@@ -78,7 +82,7 @@ export default function Navbar() {
         <Link href="/" className="brand">
           <Image
             src={assetPath("/essham-logo.png")}
-            alt="Essham — Facilities and Residential Buildings Management"
+            alt={nav.logoAlt}
             width={160}
             height={56}
             className="brand-logo"
@@ -86,18 +90,19 @@ export default function Navbar() {
           />
         </Link>
         <div className="nav-shell">
+          <LanguageToggle />
           <nav className="nav-pill">
             <Link href="/" className={isHome ? "active" : ""}>
               {isHome && <span className="nav-dot" />}
-              Home
+              {nav.home}
             </Link>
             <Link href="/services" className={isServices ? "active" : ""}>
               {isServices && <span className="nav-dot" />}
-              Services
+              {nav.services}
             </Link>
           </nav>
           <Link className="btn btn-nav-primary" href={isServices ? "tel:+966570563333" : "/services"}>
-            Get Started
+            {nav.getStarted}
           </Link>
         </div>
       </div>

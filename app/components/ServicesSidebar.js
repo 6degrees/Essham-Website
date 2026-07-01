@@ -2,8 +2,12 @@
 
 import { useEffect, useState } from "react";
 
-export default function ServicesSidebar({ services }) {
+export default function ServicesSidebar({ services, jumpLabel }) {
   const [activeSlug, setActiveSlug] = useState(services[0]?.slug ?? "");
+
+  useEffect(() => {
+    setActiveSlug(services[0]?.slug ?? "");
+  }, [services]);
 
   useEffect(() => {
     const cards = services
@@ -40,7 +44,7 @@ export default function ServicesSidebar({ services }) {
   return (
     <>
       <aside className="services-sidebar" data-reveal="left">
-        <nav aria-label="Service categories">
+        <nav aria-label={jumpLabel}>
           <ul className="services-sidebar-list">
             {services.map((service, index) => {
               const isActive = activeSlug === service.slug;
@@ -55,7 +59,7 @@ export default function ServicesSidebar({ services }) {
                     <span className="services-sidebar-index">{index + 1}/</span>
                     <span className="services-sidebar-label">{service.navLabel}</span>
                     {isActive && (
-                      <span className="services-sidebar-arrow" aria-hidden="true">
+                      <span className="services-sidebar-arrow icon-flip" aria-hidden="true">
                         →
                       </span>
                     )}
@@ -69,7 +73,7 @@ export default function ServicesSidebar({ services }) {
 
       <div className="services-mobile-jump" data-reveal>
         <label className="services-mobile-jump-label" htmlFor="services-jump">
-          Jump to service
+          {jumpLabel}
         </label>
         <div className="services-mobile-jump-field">
           <select

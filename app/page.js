@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Navbar from "./components/Navbar";
+import PartnerMarquee from "./components/PartnerMarquee";
 import WhatWeDoVideo from "./components/WhatWeDoVideo";
 import { useLanguage } from "../lib/i18n/LanguageProvider";
 import { assetPath } from "../lib/assetPath";
@@ -43,7 +44,7 @@ const featureIconKeys = ["pricing", "buildings", "clock"];
 
 export default function HomePage() {
   const { messages } = useLanguage();
-  const { hero, about, whatWeDo, contact } = messages;
+  const { hero, about, whatWeDo, contact, partners } = messages;
 
   return (
     <div className="site-wrap">
@@ -191,6 +192,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <PartnerMarquee title={partners.title} />
 
       <section id="contact" className="contact-section">
         <div className="container">

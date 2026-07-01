@@ -1,5 +1,6 @@
 import "./globals.css";
 import Footer from "./components/Footer";
+import RevealObserver from "./components/RevealObserver";
 
 export const metadata = {
   title: "Essham | Facilities Management",
@@ -11,6 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        <RevealObserver />
         {children}
         <Footer />
       </body>

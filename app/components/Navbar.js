@@ -3,39 +3,77 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { assetPath } from "../../lib/assetPath";
+
+function isHeroVisible() {
+  const hero = document.querySelector(".hero, .services-hero");
+  if (!hero) return false;
+  return hero.getBoundingClientRect().bottom > 80;
+}
 
 export default function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const isServices = pathname === "/services";
-  const forceScrolled = pathname === "/services";
-  const [scrolled, setScrolled] = useState(forceScrolled);
+  const [pastHero, setPastHero] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
+  const scrolled = pastHero;
 
   useEffect(() => {
     const hero = document.querySelector(".hero, .services-hero");
-    if (!hero) {
-      setScrolled(true);
-      return;
+
+    const heroObserver = hero
+      ? new IntersectionObserver(
+          ([entry]) => setPastHero(!entry.isIntersecting),
+          { threshold: 0, rootMargin: "-80px 0px 0px 0px" }
+        )
+      : null;
+
+    if (hero && heroObserver) {
+      heroObserver.observe(hero);
+    } else {
+      setPastHero(true);
     }
 
-    if (forceScrolled) {
-      setScrolled(true);
-      return;
-    }
+    lastScrollY.current = window.scrollY;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setScrolled(!entry.isIntersecting),
-      { threshold: 0, rootMargin: "-80px 0px 0px 0px" }
-    );
+    const onScroll = () => {
+      const currentY = window.scrollY;
 
-    observer.observe(hero);
-    return () => observer.disconnect();
-  }, [pathname, forceScrolled]);
+      if (isHeroVisible() || currentY < 24) {
+        setHidden(false);
+        lastScrollY.current = currentY;
+        return;
+      }
+
+      const scrollingDown = currentY > lastScrollY.current + 4;
+      const scrollingUp = currentY < lastScrollY.current - 4;
+
+      if (scrollingDown) {
+        setHidden(true);
+      } else if (scrollingUp) {
+        setHidden(false);
+      }
+
+      lastScrollY.current = currentY;
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      heroObserver?.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [pathname]);
 
   return (
-    <header className={`topbar${scrolled ? " topbar--scrolled" : ""}`}>
+    <header
+      className={`topbar${scrolled ? " topbar--scrolled" : ""}${hidden ? " topbar--hidden" : ""}`}
+      data-reveal="fade"
+      data-reveal-delay={0}
+    >
       <div className="container nav-row">
         <Link href="/" className="brand">
           <Image
@@ -53,12 +91,10 @@ export default function Navbar() {
               {isHome && <span className="nav-dot" />}
               Home
             </Link>
-            <Link href={isHome ? "#about" : "/#about"}>About</Link>
             <Link href="/services" className={isServices ? "active" : ""}>
               {isServices && <span className="nav-dot" />}
               Services
             </Link>
-            <Link href={isServices ? "#book" : "/services#book"}>Contact</Link>
           </nav>
           <Link className="btn btn-nav-primary" href={isServices ? "tel:+966570563333" : "/services"}>
             Get Started

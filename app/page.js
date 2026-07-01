@@ -57,7 +57,7 @@ export default function HomePage() {
         <div className="hero-overlay" />
 
         <div className="container hero-inner">
-          <p className="hero-tagline">
+          <p className="hero-tagline" data-reveal data-reveal-delay={80}>
             <svg
               className="hero-tagline-icon"
               viewBox="0 0 24 24"
@@ -73,7 +73,7 @@ export default function HomePage() {
             buildings across Saudi Arabia.
           </p>
 
-          <h1 className="hero-title">
+          <h1 className="hero-title" data-reveal data-reveal-delay={160}>
             Elevate your
             <br />
             space with expert
@@ -82,12 +82,16 @@ export default function HomePage() {
           </h1>
 
           <div className="hero-bottom">
-            <div className="hero-rating hero-rating--left">
+            <div
+              className="hero-rating hero-rating--left"
+              data-reveal="left"
+              data-reveal-delay={240}
+            >
               <span className="hero-rating-dot hero-rating-dot--orange" />
               4.9 Client Rating
             </div>
 
-            <div className="hero-cards">
+            <div className="hero-cards" data-reveal data-reveal-delay={320}>
               <a href="tel:+966570563333" className="hero-talk-card">
                 <div className="hero-talk-avatar">E</div>
                 <div className="hero-talk-text">
@@ -108,28 +112,28 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div className="hero-rating hero-rating--right">
+            <div
+              className="hero-rating hero-rating--right"
+              data-reveal="right"
+              data-reveal-delay={400}
+            >
               <span className="hero-rating-dot hero-rating-dot--green" />
               30+ Services
             </div>
           </div>
         </div>
 
-        <div className="hero-info-bar">
+        <div className="hero-info-bar" data-reveal data-reveal-delay={480}>
           <span>057 056 3333</span>
-          <span>Al Khobar, Corniche Park — Prince Turki St, Office 3</span>
-          <a href="tel:+966570563333" className="hero-info-cta" aria-label="Call Essham">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <rect x="6" y="4" width="4" height="16" rx="1" />
-              <rect x="14" y="4" width="4" height="16" rx="1" />
-            </svg>
-          </a>
+          <span className="hero-info-location">
+            Al Khobar, Corniche Park — Prince Turki St, Office 3
+          </span>
         </div>
       </section>
 
       <section className="about-section" id="about">
         <div className="container about-grid">
-          <aside className="about-sidebar">
+          <aside className="about-sidebar" data-reveal="left">
             <span className="about-badge">
               <span className="about-badge-dot" />
               About Us
@@ -149,7 +153,7 @@ export default function HomePage() {
             </Link>
           </aside>
 
-          <div className="about-main">
+          <div className="about-main" data-reveal="right" data-reveal-delay={100}>
             <span className="about-tag">#Facility Management</span>
             <h2 className="about-statement">
               Bringing quality and comfort back to your buildings. Delivering
@@ -160,8 +164,13 @@ export default function HomePage() {
               </span>
             </h2>
             <div className="about-stats">
-              {stats.map((item) => (
-                <article className="about-stat-card" key={item.label}>
+              {stats.map((item, index) => (
+                <article
+                  className="about-stat-card"
+                  key={item.label}
+                  data-reveal
+                  data-reveal-delay={index * 120}
+                >
                   <p className="about-stat-label">{item.label}</p>
                   <div className="about-stat-body">
                     <p className="about-stat-value">{item.value}</p>
@@ -176,7 +185,7 @@ export default function HomePage() {
 
       <section className="whatwedo-section">
         <div className="container">
-          <div className="whatwedo-header">
+          <div className="whatwedo-header" data-reveal>
             <div className="whatwedo-header-text">
               <span className="whatwedo-badge">
                 <span className="whatwedo-badge-dot" />
@@ -194,17 +203,24 @@ export default function HomePage() {
           </div>
 
           <div className="whatwedo-grid">
-            <WhatWeDoVideo />
+            <div data-reveal="left" data-reveal-delay={100}>
+              <WhatWeDoVideo />
+            </div>
 
-            <div className="whatwedo-content">
+            <div className="whatwedo-content" data-reveal="right" data-reveal-delay={200}>
               <p className="whatwedo-intro">
                 From elevators and HVAC to corridors and common areas, our
                 detailed management approach covers every corner. We use
                 professional standards and sustainable facility practices.
               </p>
               <ul className="whatwedo-features">
-                {features.map((item) => (
-                  <li key={item.title} className="whatwedo-feature">
+                {features.map((item, index) => (
+                  <li
+                    key={item.title}
+                    className="whatwedo-feature"
+                    data-reveal
+                    data-reveal-delay={index * 100}
+                  >
                     <span className="whatwedo-feature-icon" aria-hidden="true">
                       {item.icon === "pricing" && (
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -236,7 +252,7 @@ export default function HomePage() {
       </section>
 
       <section id="contact" className="section light">
-        <div className="container contact-box">
+        <div className="container contact-box" data-reveal="scale">
           <div>
             <p className="eyebrow dark">Contact</p>
             <h2>Book a trusted, professional Essham team.</h2>

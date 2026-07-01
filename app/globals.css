@@ -83,6 +83,7 @@ a {
 
 .site-wrap {
   color: var(--text);
+  overflow-x: clip;
 }
 
 .container {
@@ -848,6 +849,17 @@ h3 {
   padding: 100px 0;
   background: #12151c;
   color: #ffffff;
+  overflow-x: clip;
+}
+
+.whatwedo-grid > [data-reveal="left"],
+.whatwedo-content[data-reveal="right"] {
+  transform: translateY(28px);
+}
+
+.whatwedo-grid > [data-reveal="left"].reveal--visible,
+.whatwedo-content[data-reveal="right"].reveal--visible {
+  transform: translateY(0);
 }
 
 .whatwedo-header {
@@ -919,10 +931,14 @@ h3 {
   align-items: stretch;
 }
 
-.whatwedo-media {
-  position: relative;
+.whatwedo-grid > * {
   flex: 1 1 0;
   min-width: 0;
+}
+
+.whatwedo-media {
+  position: relative;
+  width: 100%;
   border-radius: 16px;
   overflow: hidden;
   aspect-ratio: 1 / 1;
@@ -957,9 +973,14 @@ h3 {
 .whatwedo-feature {
   display: flex;
   gap: 20px;
-  align-items: center;
-  min-height: 0;
+  align-items: flex-start;
+  min-width: 0;
   padding: 8px 0;
+}
+
+.whatwedo-feature > div {
+  flex: 1;
+  min-width: 0;
 }
 
 .whatwedo-media img,
@@ -1431,6 +1452,43 @@ h3 {
 }
 
 @media (max-width: 1100px) {
+  .whatwedo-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .whatwedo-header-text {
+    max-width: none;
+  }
+
+  .whatwedo-grid {
+    flex-direction: column;
+  }
+
+  .whatwedo-media {
+    aspect-ratio: 16 / 10;
+  }
+
+  .whatwedo-content {
+    height: auto;
+    display: block;
+  }
+
+  .whatwedo-features {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    height: auto;
+    grid-template-rows: none;
+  }
+
+  .whatwedo-feature {
+    align-items: flex-start;
+    padding: 0;
+  }
+
   .services-list-layout {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -1486,6 +1544,32 @@ h3 {
 }
 
 @media (max-width: 560px) {
+  .whatwedo-section {
+    padding: 72px 0;
+  }
+
+  .whatwedo-header h2 {
+    font-size: clamp(1.5rem, 7vw, 2rem);
+  }
+
+  .whatwedo-cta-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .whatwedo-intro {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+
+  .whatwedo-feature h3 {
+    font-size: 1.1rem;
+  }
+
+  .whatwedo-feature p {
+    font-size: 0.95rem;
+  }
+
   .services-hero {
     padding: 96px 0 44px;
   }
@@ -2271,39 +2355,6 @@ h3 {
 
   .hero-info-location {
     text-align: center;
-  }
-
-  .whatwedo-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .whatwedo-grid {
-    flex-direction: column;
-  }
-
-  .whatwedo-media {
-    flex: none;
-    width: 100%;
-    aspect-ratio: 16 / 10;
-  }
-
-  .whatwedo-content {
-    height: auto;
-    display: block;
-  }
-
-  .whatwedo-features {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-    height: auto;
-    grid-template-rows: none;
-  }
-
-  .whatwedo-feature {
-    align-items: flex-start;
-    padding: 0;
   }
 
   .split,
